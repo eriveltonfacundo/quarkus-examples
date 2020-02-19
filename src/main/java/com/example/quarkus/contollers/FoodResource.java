@@ -24,8 +24,11 @@ public class FoodResource {
     private FoodService foodService;
 
     @GET
-    public List<Food> findAll() {
-        return Food.listAll();
+    public Response findAll() {
+        List<Food> foods = Food.listAll();
+        if (foods.isEmpty())
+            return Response.status(404).build();
+        return Response.ok(foods).build();
     }
 
     @POST
